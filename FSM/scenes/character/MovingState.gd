@@ -16,6 +16,7 @@ var was_in_coyote = false
 
 func on_enter():
 	animation_node.travel("running")
+	was_in_coyote = false
 
 func run_coyote_time():
 	if !on_coyote_time and !was_in_coyote:
@@ -29,7 +30,11 @@ func state_process(delta):
 		next_state = idle_state
 	
 	if !character.is_on_floor():
+		run_coyote_time()
+	
+	if !character.is_on_floor() and was_in_coyote:
 		next_state = air_state
+		
 		# add coyote time
 		# add jump state
 	else:
@@ -37,6 +42,9 @@ func state_process(delta):
 		
 # set gravity on player, evaluate which other variable should be alocated outside this state
 func state_input(event : InputEvent):
+	
 	if event.is_action_pressed("ui_accept"):
-		character.jump()
-		next_state = air_state
+		
+		if character.is_on_floor() or on_coyote_time:
+			character.jump()
+			next_state = air_state
