@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "CharacterStateMachine",
+"language": "GDScript",
+"path": "res://nodes/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://nodes/states/State.gd"
+} ]
+_global_script_class_icons={
+"CharacterStateMachine": "",
+"State": ""
+}
+
 [application]
 
 config/name="FSM"

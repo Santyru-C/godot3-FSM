@@ -35,7 +35,6 @@ func state_process(delta):
 	if !character.is_on_floor() and was_in_coyote:
 		next_state = air_state
 		
-		# add coyote time
 		# add jump state
 	else:
 		character.accelerate(delta)

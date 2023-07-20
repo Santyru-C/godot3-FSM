@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://resources/sprites/character-prototype/air-spin.png" type="Texture" id=1]
 [ext_resource path="res://resources/sprites/character-prototype/death.png" type="Texture" id=2]
@@ -9,6 +9,13 @@
 [ext_resource path="res://resources/sprites/character-prototype/land.png" type="Texture" id=7]
 [ext_resource path="res://resources/sprites/character-prototype/hurt.png" type="Texture" id=8]
 [ext_resource path="res://scenes/character/Character.gd" type="Script" id=9]
+[ext_resource path="res://nodes/StateMachine.gd" type="Script" id=10]
+[ext_resource path="res://scenes/character/IdleState.gd" type="Script" id=11]
+[ext_resource path="res://scenes/character/MovingState.gd" type="Script" id=12]
+[ext_resource path="res://scenes/character/StateDebugLabel.gd" type="Script" id=13]
+[ext_resource path="res://scenes/character/AirState.gd" type="Script" id=14]
+[ext_resource path="res://scenes/character/SpeedDebugLabel.gd" type="Script" id=15]
+[ext_resource path="res://scenes/character/TMaxSpeedLabel.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 48 )
@@ -409,6 +416,12 @@ animation = "running"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
 [sub_resource type="AnimationNodeStateMachine" id=22]
 states/air_spin/node = SubResource( 12 )
 states/air_spin/position = Vector2( 329, -129.908 )
@@ -417,7 +430,7 @@ states/death/position = Vector2( 582, 49.092 )
 states/hurt/node = SubResource( 14 )
 states/hurt/position = Vector2( 413, 49.092 )
 states/idle/node = SubResource( 31 )
-states/idle/position = Vector2( 91.26, 32.092 )
+states/idle/position = Vector2( -36.74, 75.092 )
 states/jumping/node = SubResource( 16 )
 states/jumping/position = Vector2( 158, -44.908 )
 states/landing/node = SubResource( 17 )
@@ -425,9 +438,9 @@ states/landing/position = Vector2( 349, -49.908 )
 states/punching/node = SubResource( 18 )
 states/punching/position = Vector2( 841, 164.092 )
 states/running/node = SubResource( 32 )
-states/running/position = Vector2( 280.26, 32.092 )
-transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ) ]
-graph_offset = Vector2( -225.74, -163.908 )
+states/running/position = Vector2( 224.26, 69.092 )
+transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ), "running", "jumping", SubResource( 35 ), "jumping", "idle", SubResource( 36 ), "idle", "jumping", SubResource( 37 ) ]
+graph_offset = Vector2( -192.74, -95.568 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=23]
 
@@ -459,3 +472,50 @@ tree_root = SubResource( 22 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 23 )
+
+[node name="CharacterStateMachine" type="Node" parent="."]
+script = ExtResource( 10 )
+character_path = NodePath("..")
+animation_tree_path = NodePath("../AnimationTree")
+
+[node name="Idle" type="Node" parent="CharacterStateMachine"]
+script = ExtResource( 11 )
+moving_state_path = NodePath("../Moving")
+air_state_path = NodePath("../Air")
+
+[node name="Moving" type="Node" parent="CharacterStateMachine"]
+script = ExtResource( 12 )
+idle_state_path = NodePath("../Idle")
+air_state_path = NodePath("../Air")
+
+[node name="Air" type="Node" parent="CharacterStateMachine"]
+script = ExtResource( 14 )
+moving_state_path = NodePath("../Moving")
+idle_state_path = NodePath("../Idle")
+
+[node name="Metters" type="Node2D" parent="."]
+
+[node name="StateDebugLabel" type="Label" parent="Metters"]
+margin_left = -28.0
+margin_top = -86.0
+margin_right = 78.0
+margin_bottom = -56.0
+script = ExtResource( 13 )
+state_machine_path = NodePath("../../CharacterStateMachine")
+
+[node name="SpeedDebugLabel" type="Label" parent="Metters"]
+margin_left = 23.0
+margin_top = 31.0
+margin_right = 66.0
+margin_bottom = 46.0
+script = ExtResource( 15 )
+character_path = NodePath("../..")
+
+[node name="TMaxSpeedLabel" type="Label" parent="Metters"]
+visible = false
+margin_left = 39.0
+margin_top = -44.0
+margin_right = 79.0
+margin_bottom = -30.0
+script = ExtResource( 16 )
+character_path = NodePath("../..")
