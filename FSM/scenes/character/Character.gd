@@ -15,10 +15,16 @@ onready var h_friction : float = (max_speed/ t_stop)
 onready var jump_velocity = (2 * max_jump_height) / t_max_height * -1
 onready var jump_gravity = (2 * max_jump_height) / pow(t_max_height, 2)
 var current_gravity : float = 0
+var jump_buffered = false
 
 func _ready():
 	$AnimationTree.get("parameters/playback").start("idle")
 	current_gravity = jump_gravity
+
+func buffer_jump():
+	jump_buffered = true
+	yield(get_tree().create_timer(0.25), "timeout")
+	jump_buffered = false
 	
 func update_input():
 	direction.x = (
