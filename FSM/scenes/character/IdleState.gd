@@ -7,6 +7,10 @@ onready var moving_state = get_node(moving_state_path)
 onready var air_state = get_node(air_state_path)
 
 func on_enter():
+	if character.jump_buffered:
+		character.jump()
+		next_state = air_state
+
 	animation_node.travel("idle")
 
 func state_process(delta):

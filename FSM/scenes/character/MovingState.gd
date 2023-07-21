@@ -15,6 +15,9 @@ var on_coyote_time = false
 var was_in_coyote = false
 
 func on_enter():
+	if character.jump_buffered:
+		character.jump()
+		next_state = air_state
 	animation_node.travel("running")
 	was_in_coyote = false
 
