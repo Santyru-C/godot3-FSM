@@ -15,7 +15,6 @@
 [ext_resource path="res://scenes/character/StateDebugLabel.gd" type="Script" id=13]
 [ext_resource path="res://scenes/character/AirState.gd" type="Script" id=14]
 [ext_resource path="res://scenes/character/SpeedDebugLabel.gd" type="Script" id=15]
-[ext_resource path="res://scenes/character/TMaxSpeedLabel.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 48 )
@@ -422,6 +421,10 @@ animation = "running"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachine" id=22]
 states/air_spin/node = SubResource( 12 )
 states/air_spin/position = Vector2( 329, -129.908 )
@@ -439,8 +442,8 @@ states/punching/node = SubResource( 18 )
 states/punching/position = Vector2( 841, 164.092 )
 states/running/node = SubResource( 32 )
 states/running/position = Vector2( 224.26, 69.092 )
-transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ), "running", "jumping", SubResource( 35 ), "jumping", "idle", SubResource( 36 ), "idle", "jumping", SubResource( 37 ) ]
-graph_offset = Vector2( -192.74, -95.568 )
+transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ), "running", "jumping", SubResource( 35 ), "jumping", "idle", SubResource( 36 ), "idle", "jumping", SubResource( 37 ), "air_spin", "jumping", SubResource( 38 ) ]
+graph_offset = Vector2( -207.74, -131.568 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=23]
 
@@ -509,13 +512,4 @@ margin_top = 31.0
 margin_right = 66.0
 margin_bottom = 46.0
 script = ExtResource( 15 )
-character_path = NodePath("../..")
-
-[node name="TMaxSpeedLabel" type="Label" parent="Metters"]
-visible = false
-margin_left = 39.0
-margin_top = -44.0
-margin_right = 79.0
-margin_bottom = -30.0
-script = ExtResource( 16 )
 character_path = NodePath("../..")
