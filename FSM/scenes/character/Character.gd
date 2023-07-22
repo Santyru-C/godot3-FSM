@@ -6,7 +6,7 @@ var last_direction : int
 
 export(int) var max_speed = 500
 export(float) var t_max_speed = 0.5
-export(float) var t_stop = 0.5
+export(float) var t_stop = 0.25
 export(int) var max_jump_height = 175
 export(float) var t_max_height = 0.5
 
