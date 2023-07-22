@@ -2,9 +2,11 @@ extends State
 
 export(NodePath) var moving_state_path
 export(NodePath) var air_state_path
+export(NodePath) var attack_state_path
 
 onready var moving_state = get_node(moving_state_path)
 onready var air_state = get_node(air_state_path)
+onready var attack_state = get_node(attack_state_path)
 
 func on_enter():
 	if character.jump_buffered:
@@ -24,3 +26,6 @@ func state_input(event : InputEvent):
 	if event.is_action_pressed("ui_accept"):
 		character.jump()
 		next_state = air_state
+		
+	if event.is_action_pressed("ui_up"):
+		next_state = attack_state
