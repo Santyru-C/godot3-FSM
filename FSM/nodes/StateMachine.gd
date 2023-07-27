@@ -23,12 +23,13 @@ func _ready():
 			push_warning("%s is not a State Object!" % child)
 
 func switch_states(new_state : State):
+	var message
 	if (current_state != null):
 		current_state.on_exit()
 		current_state.next_state = null
-		
 		current_state = new_state
 		current_state.on_enter()
+		
 
 func _physics_process(delta): #update
 	if (current_state.next_state != null):

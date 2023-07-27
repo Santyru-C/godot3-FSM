@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://resources/sprites/character-prototype/air-spin.png" type="Texture" id=1]
 [ext_resource path="res://resources/sprites/character-prototype/death.png" type="Texture" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://scenes/character/StateDebugLabel.gd" type="Script" id=13]
 [ext_resource path="res://scenes/character/AirState.gd" type="Script" id=14]
 [ext_resource path="res://scenes/character/SpeedDebugLabel.gd" type="Script" id=15]
+[ext_resource path="res://scenes/character/AttackState.gd" type="Script" id=16]
+[ext_resource path="res://scenes/character/CastingState.gd" type="Script" id=17]
+[ext_resource path="res://resources/sprites/character-prototype/sword-attack1.png" type="Texture" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 48 )
@@ -96,6 +99,60 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "casting"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("CharacterStateMachine/Casting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_exit"
+} ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -382,6 +439,9 @@ tracks/2/keys = {
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "air_spin"
 
+[sub_resource type="AnimationNodeAnimation" id=44]
+animation = "casting"
+
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "death"
 
@@ -425,25 +485,43 @@ animation = "running"
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
 [sub_resource type="AnimationNodeStateMachine" id=22]
 states/air_spin/node = SubResource( 12 )
-states/air_spin/position = Vector2( 329, -129.908 )
+states/air_spin/position = Vector2( 280, -178.908 )
+states/casting/node = SubResource( 44 )
+states/casting/position = Vector2( -25.74, 193.836 )
 states/death/node = SubResource( 13 )
-states/death/position = Vector2( 582, 49.092 )
+states/death/position = Vector2( 694, 69.092 )
 states/hurt/node = SubResource( 14 )
-states/hurt/position = Vector2( 413, 49.092 )
+states/hurt/position = Vector2( 464, 68.092 )
 states/idle/node = SubResource( 31 )
-states/idle/position = Vector2( -36.74, 75.092 )
+states/idle/position = Vector2( -37.74, 68.092 )
 states/jumping/node = SubResource( 16 )
 states/jumping/position = Vector2( 158, -44.908 )
 states/landing/node = SubResource( 17 )
 states/landing/position = Vector2( 349, -49.908 )
 states/punching/node = SubResource( 18 )
-states/punching/position = Vector2( 841, 164.092 )
+states/punching/position = Vector2( 242, 215.092 )
 states/running/node = SubResource( 32 )
-states/running/position = Vector2( 224.26, 69.092 )
-transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ), "running", "jumping", SubResource( 35 ), "jumping", "idle", SubResource( 36 ), "idle", "jumping", SubResource( 37 ), "air_spin", "jumping", SubResource( 38 ) ]
-graph_offset = Vector2( -207.74, -131.568 )
+states/running/position = Vector2( 252.26, 68.092 )
+transitions = [ "jumping", "air_spin", SubResource( 25 ), "jumping", "landing", SubResource( 26 ), "air_spin", "landing", SubResource( 27 ), "hurt", "death", SubResource( 30 ), "idle", "running", SubResource( 33 ), "running", "idle", SubResource( 34 ), "running", "jumping", SubResource( 35 ), "jumping", "idle", SubResource( 36 ), "idle", "jumping", SubResource( 37 ), "air_spin", "jumping", SubResource( 38 ), "idle", "punching", SubResource( 39 ), "running", "punching", SubResource( 40 ), "punching", "idle", SubResource( 41 ), "punching", "running", SubResource( 42 ), "running", "casting", SubResource( 45 ), "idle", "casting", SubResource( 46 ), "casting", "idle", SubResource( 47 ), "casting", "running", SubResource( 48 ) ]
+graph_offset = Vector2( -211.74, -29.164 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=23]
 
@@ -453,6 +531,7 @@ script = ExtResource( 9 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 9.53674e-07, -4 )
 scale = Vector2( 2.66667, 3.16667 )
+texture = ExtResource( 18 )
 hframes = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -462,6 +541,7 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/air_spin = SubResource( 6 )
+anims/casting = SubResource( 43 )
 anims/death = SubResource( 7 )
 anims/hurt = SubResource( 8 )
 anims/idle = SubResource( 3 )
@@ -485,6 +565,8 @@ animation_tree_path = NodePath("../AnimationTree")
 script = ExtResource( 11 )
 moving_state_path = NodePath("../Moving")
 air_state_path = NodePath("../Air")
+attack_state_path = NodePath("../Attack")
+casting_state_path = NodePath("../Casting")
 
 [node name="Moving" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 12 )
@@ -494,6 +576,13 @@ air_state_path = NodePath("../Air")
 [node name="Air" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 14 )
 moving_state_path = NodePath("../Moving")
+idle_state_path = NodePath("../Idle")
+
+[node name="Attack" type="Node" parent="CharacterStateMachine"]
+script = ExtResource( 16 )
+
+[node name="Casting" type="Node" parent="CharacterStateMachine"]
+script = ExtResource( 17 )
 idle_state_path = NodePath("../Idle")
 
 [node name="Metters" type="Node2D" parent="."]

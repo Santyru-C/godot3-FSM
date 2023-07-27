@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
+signal spell_casted
+
 var direction : Vector2 = Vector2(0, 1)
 var velocity : Vector2 = Vector2.ZERO
 var last_direction : int
 
 export(int) var max_speed = 500
 export(float) var t_max_speed = 0.5
-export(float) var t_stop = 0.25
+export(float) var t_stop = 0.1
 export(int) var max_jump_height = 175
 export(float) var t_max_height = 0.5
 
