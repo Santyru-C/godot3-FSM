@@ -22,7 +22,7 @@ var jump_buffered = false
 func _ready():
 	$AnimationTree.get("parameters/playback").start("idle")
 	current_gravity = jump_gravity
-
+	
 func buffer_jump():
 	jump_buffered = true
 	yield(get_tree().create_timer(0.25), "timeout")
@@ -63,6 +63,8 @@ func apply_gravity(delta):
 	
 func _physics_process(delta):
 	update_input()
+	
+	print(self.is_on_floor())
 	if direction.x != 0:
 		last_direction = direction.x
 	apply_gravity(delta)

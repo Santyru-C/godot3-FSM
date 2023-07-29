@@ -572,11 +572,13 @@ casting_state_path = NodePath("../Casting")
 script = ExtResource( 12 )
 idle_state_path = NodePath("../Idle")
 air_state_path = NodePath("../Air")
+casting_state_path = NodePath("../Casting")
 
 [node name="Air" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 14 )
 moving_state_path = NodePath("../Moving")
 idle_state_path = NodePath("../Idle")
+casting_state_path = NodePath("../Casting")
 
 [node name="Attack" type="Node" parent="CharacterStateMachine"]
 script = ExtResource( 16 )
