@@ -1,13 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/environment/platforms/platform.gd" type="Script" id=1]
 [ext_resource path="res://resources/tiles/texture_02.png" type="Texture" id=2]
+[ext_resource path="res://resources/tiles/texture_03.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 8 )
 
 [node name="platform" type="StaticBody2D"]
 script = ExtResource( 1 )
+sprite_active = ExtResource( 2 )
+sprite_disabled = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1.90735e-06, -3.57628e-07 )
