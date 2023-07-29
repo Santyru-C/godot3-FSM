@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/tiles/texture_02.png" type="Texture" id=1]
 [ext_resource path="res://scenes/character/Character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/TestGrounds.gd" type="Script" id=3]
+[ext_resource path="res://scenes/environment/platforms/TestGrounds.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -30,6 +32,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/z_index = 0
 
 [node name="TestGrounds" type="Node2D"]
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
@@ -42,3 +45,6 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -6
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
 position = Vector2( 412, 517 )
+
+[node name="platform" parent="." instance=ExtResource( 4 )]
+position = Vector2( 593, 191 )
