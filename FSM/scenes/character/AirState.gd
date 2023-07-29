@@ -2,10 +2,13 @@ extends State
 
 export(NodePath) var moving_state_path
 export(NodePath) var idle_state_path
+export(NodePath) var casting_state_path
+
 export(int) var max_air_jumps = 1
 
 onready var moving_state = get_node(moving_state_path)
 onready var idle_state = get_node(idle_state_path)
+onready var casting_state = get_node(casting_state_path)
 
 var extra_jumps_made = 0
 var exiting_message
@@ -37,3 +40,6 @@ func state_input(event : InputEvent):
 	
 	elif event.is_action_pressed("ui_accept") and extra_jumps_made == max_air_jumps:
 		character.buffer_jump()
+		
+	if event.is_action_pressed("cast_spell"):
+		next_state = casting_state

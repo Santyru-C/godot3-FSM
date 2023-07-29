@@ -3,9 +3,11 @@ extends State
 ### State NodePaths ###
 export(NodePath) var idle_state_path
 export(NodePath) var air_state_path
+export(NodePath) var casting_state_path
 
 onready var idle_state = get_node(idle_state_path)
 onready var air_state = get_node(air_state_path)
+onready var casting_state = get_node(casting_state_path)
 
 ### State Variables ###
 
@@ -50,3 +52,7 @@ func state_input(event : InputEvent):
 		if character.is_on_floor() or on_coyote_time:
 			character.jump()
 			next_state = air_state
+
+	if event.is_action_pressed("cast_spell"):
+		next_state = casting_state
+		
