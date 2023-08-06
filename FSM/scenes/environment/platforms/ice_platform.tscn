@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/environment/platforms/platform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ice_platform.gd" type="Script" id=2]
+[ext_resource path="res://resources/tiles/platforms/ice_empty.png" type="Texture" id=3]
+[ext_resource path="res://resources/tiles/platforms/ice_full.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 55.5, 10.5 )
+
+[node name="ice_platform" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+sprite_summer = ExtResource( 3 )
+sprite_winter = ExtResource( 4 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -0.999997, 0 )
+scale = Vector2( 0.895833, 0.729167 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( -0.5, 0 )
+shape = SubResource( 1 )
