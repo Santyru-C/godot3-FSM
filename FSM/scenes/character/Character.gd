@@ -64,7 +64,6 @@ func apply_gravity(delta):
 func _physics_process(delta):
 	update_input()
 	
-	print(self.is_on_floor())
 	if direction.x != 0:
 		last_direction = direction.x
 	apply_gravity(delta)
